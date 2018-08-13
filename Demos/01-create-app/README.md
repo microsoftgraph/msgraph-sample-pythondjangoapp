@@ -1,4 +1,4 @@
-# Create a Django web app
+# Create a Python Django web app
 
 ## Prerequisites
 
