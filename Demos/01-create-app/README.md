@@ -48,6 +48,12 @@ INSTALLED_APPS = [
 ]
 ```
 
+In your CLI, run the following command to initialize the database for the project.
+
+```Shell
+python manage.py migrate
+```
+
 Add a [URLconf](https://docs.djangoproject.com/en/2.1/topics/http/urls/) for the `tutorial` app. Create a new file in the `./tutorial` directory named `urls.py` and add the following code.
 
 ```python
