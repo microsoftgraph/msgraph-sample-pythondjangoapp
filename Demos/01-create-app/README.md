@@ -90,11 +90,13 @@ Before moving on, install some additional libraries that you will use later:
 
 - [Requests-OAuthlib: OAuth for Humans](https://requests-oauthlib.readthedocs.io/en/latest/) for handling sign-in and OAuth token flows.
 - [Requests: HTTP for Humans](http://docs.python-requests.org/en/latest/) for sending HTTP requests to Microsoft Graph.sign-in and OAuth token flows.
+- [PyYAML](https://pyyaml.org/wiki/PyYAMLDocumentation) for loading configuration from a YAML file.
 
 Run the following command in your CLI.
 
 ```Shell
 pip install requests_oauthlib
+pip install pyyaml
 ```
 
 ## Design the app
