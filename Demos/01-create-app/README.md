@@ -211,7 +211,7 @@ Next, create a template for the home page that uses the layout. Create a new fil
 {% block content %}
 <div class="jumbotron">
   <h1>Python Graph Tutorial</h1>
-  <p class="lead">This sample app shows how to use the Microsoft Graph API to access Outlook and OneDrive data from Ruby</p>
+  <p class="lead">This sample app shows how to use the Microsoft Graph API to access Outlook and OneDrive data from Python</p>
   {% if user.is_authenticated %}
     <h4>Welcome {{ user.name }}!</h4>
     <p>Use the navigation bar at the top of the page to get started.</p>
@@ -222,10 +222,10 @@ Next, create a template for the home page that uses the layout. Create a new fil
 {% endblock %}
 ```
 
-Finally, update the `home` view to use this template. Open the `./tutorial/views.py` file and replace the existing `home` view with the following.
+Update the `home` view to use this template. Open the `./tutorial/views.py` file and add the following new function.
 
 ```python
-def home(request):
+def initialize_context(request):
   context = {}
 
   # Check for any errors in the session
@@ -237,6 +237,14 @@ def home(request):
 
   # Check for user in the session
   context['user'] = request.session.get('user', {'is_authenticated': False})
+  return context
+```
+
+Then replace the existing `home` view with the following.
+
+```python
+def home(request):
+  context = initialize_context(request)
 
   return render(request, 'tutorial/home.html', context)
 ```

@@ -5,6 +5,11 @@ from tutorial.auth_helper import get_sign_in_url, get_token_from_code, store_tok
 from tutorial.graph_helper import get_user
 
 def home(request):
+  context = initialize_context(request)
+
+  return render(request, 'tutorial/home.html', context)
+
+def initialize_context(request):
   context = {}
 
   # Check for any errors in the session
@@ -16,8 +21,7 @@ def home(request):
 
   # Check for user in the session
   context['user'] = request.session.get('user', {'is_authenticated': False})
-
-  return render(request, 'tutorial/home.html', context)
+  return context
 
 def sign_in(request):
   # Get the sign-in URL
