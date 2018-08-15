@@ -222,10 +222,23 @@ Next, create a template for the home page that uses the layout. Create a new fil
 {% endblock %}
 ```
 
-Finally, update the `home` view to use this template. Open the `./tutorial/views.py` file and replace the `return HttpResponse("Welcome to the tutorial.")` line with the following.
+Finally, update the `home` view to use this template. Open the `./tutorial/views.py` file and replace the existing `home` view with the following.
 
 ```python
-return render(request, 'tutorial/home.html')
+def home(request):
+  context = {}
+
+  # Check for any errors in the session
+  error = request.session.pop('flash_error', None)
+
+  if error != None:
+    context['errors'] = []
+    context['errors'].append(error)
+
+  # Check for user in the session
+  context['user'] = request.session.get('user', {'is_authenticated': False})
+
+  return render(request, 'tutorial/home.html', context)
 ```
 
 Save all of your changes and restart the server. Now, the app should look very different.
