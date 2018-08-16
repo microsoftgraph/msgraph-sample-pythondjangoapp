@@ -188,10 +188,9 @@ def store_user(request, user):
     'email': user['mail'] if (user['mail'] != None) else user['userPrincipalName']
   }
 
-def get_access_token(request):
+def get_token(request):
   token = request.session['oauth_token']
-  if token != None:
-    return token['access_token']
+  return token
 
 def remove_user_and_token(request):
   if 'oauth_token' in request.session:
@@ -258,10 +257,10 @@ At this point your application has an access token, which is sent in the `Author
 
 However, this token is short-lived. The token expires an hour after it is issued. This is where the refresh token becomes useful. The refresh token allows the app to request a new access token without requiring the user to sign in again. Update the token management code to implement token refresh.
 
-Replace the existing `get_access_token` method in `./tutorial/auth_helper.py` with the following.
+Replace the existing `get_token` method in `./tutorial/auth_helper.py` with the following.
 
 ```python
-def get_access_token(request):
+def get_token(request):
   token = request.session['oauth_token']
   if token != None:
     # Check expiration
@@ -285,11 +284,11 @@ def get_access_token(request):
       store_token(request, new_token)
 
       # Return new access token
-      return new_token['access_token']
+      return new_token
 
     else:
       # Token still valid, just return it
-      return token['access_token']
+      return token
 ```
 
 This method first checks if the access token is expired or close to expiring. If it is, then it uses the refresh token to get new tokens, then updates the cache and returns the new access token.
