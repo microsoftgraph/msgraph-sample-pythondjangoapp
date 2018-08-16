@@ -130,7 +130,6 @@ Create a new file in the `./tutorial` directory named `graph_helper.py` and add 
 
 ```python
 from requests_oauthlib import OAuth2Session
-import logging
 
 graph_url = 'https://graph.microsoft.com/v1.0'
 

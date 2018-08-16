@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from tutorial.auth_helper import get_sign_in_url, get_token_from_code, store_token, store_user, remove_user_and_token
-from tutorial.graph_helper import get_user
+from tutorial.auth_helper import get_sign_in_url, get_token_from_code, store_token, store_user, remove_user_and_token, get_token
+from tutorial.graph_helper import get_user, get_calendar_events
+import dateutil.parser
 
 def home(request):
   context = initialize_context(request)
@@ -51,3 +52,21 @@ def sign_out(request):
   remove_user_and_token(request)
 
   return HttpResponseRedirect(reverse('home'))
+
+def calendar(request):
+  context = initialize_context(request)
+
+  token = get_token(request)
+
+  events = get_calendar_events(token)
+
+  if events:
+    # Convert the ISO 8601 date times to a datetime object
+    # This allows the Django template to format the value nicely
+    for event in events['value']:
+      event['start']['dateTime'] = dateutil.parser.parse(event['start']['dateTime'])
+      event['end']['dateTime'] = dateutil.parser.parse(event['end']['dateTime'])
+
+    context['events'] = events['value']
+
+  return render(request, 'tutorial/calendar.html', context)

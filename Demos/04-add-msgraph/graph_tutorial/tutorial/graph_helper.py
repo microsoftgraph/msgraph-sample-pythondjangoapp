@@ -8,3 +8,18 @@ def get_user(token):
   user = graph_client.get('{0}/me'.format(graph_url))
   # Return the JSON result
   return user.json()
+
+def get_calendar_events(token):
+  graph_client = OAuth2Session(token=token)
+
+  # Configure query parameters to
+  # modify the results
+  query_params = {
+    '$select': 'subject,organizer,start,end',
+    '$orderby': 'createdDateTime DESC'
+  }
+
+  # Send GET to /me/events
+  events = graph_client.get('{0}/me/events'.format(graph_url), params=query_params)
+  # Return the JSON result
+  return events.json()

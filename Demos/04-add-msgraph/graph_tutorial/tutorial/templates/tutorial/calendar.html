@@ -1,0 +1,26 @@
+{% extends "tutorial/layout.html" %}
+{% block content %}
+<h1>Calendar</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Organizer</th>
+      <th scope="col">Subject</th>
+      <th scope="col">Start</th>
+      <th scope="col">End</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if events %}
+      {% for event in events %}
+        <tr>
+          <td>{{ event.organizer.emailAddress.name }}</td>
+          <td>{{ event.subject }}</td>
+          <td>{{ event.start.dateTime|date:'SHORT_DATETIME_FORMAT' }}</td>
+          <td>{{ event.end.dateTime|date:'SHORT_DATETIME_FORMAT' }}</td>
+        </tr>
+      {% endfor %}
+    {% endif %}
+  </tbody>
+</table>
+{% endblock %}
