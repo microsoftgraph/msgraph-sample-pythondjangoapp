@@ -1,6 +1,6 @@
 # Build Python Django apps with Microsoft Graph Demos
 
-The following demos can be used either to walk through the process of creating a Python Django app or the final solution in each demo can be used as a working sample.
+The following demos can be used either to walk through the process of creating a Python Django app or the completed solution in each demo can be used as a working sample.
 
 - [Create a Python Django web app](./01-create-app)
 - [Register a web application with the Application Registration Portal](./02-arp-app)
