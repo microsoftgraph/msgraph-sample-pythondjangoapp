@@ -29,7 +29,13 @@ Consider what this code is doing.
 - The `$select` parameter limits the fields returned for each events to just those the view will actually use.
 - The `$orderby` parameter sorts the results by the date and time they were created, with the most recent item being first.
 
-Now create a calendar view. Add the following view to `./tutorial/views.py`.
+Now create a calendar view. First change the `from tutorial.graph_helper import get_user` line to the following.
+
+```python
+from tutorial.graph_helper import get_user, get_calendar_events
+```
+
+Then, add the following view to `./tutorial/views.py`.
 
 ```python
 def calendar(request):
@@ -93,7 +99,13 @@ Now you can add a template to display the results in a more user-friendly manner
 {% endblock %}
 ```
 
-That will loop through a collection of events and add a table row for each one. Replace the `calendar` view in `./tutorial/views.py` with the following code.
+That will loop through a collection of events and add a table row for each one. Add the following `import` statement to the top of the `./tutorials/views.py` file.
+
+```python
+import dateutil.parser
+```
+
+Replace the `calendar` view in `./tutorial/views.py` with the following code.
 
 ```python
 def calendar(request):
