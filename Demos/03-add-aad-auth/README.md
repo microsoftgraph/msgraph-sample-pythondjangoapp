@@ -199,7 +199,13 @@ def remove_user_and_token(request):
     del request.session['user']
 ```
 
-Then, update the `callback` function in `./tutorial/views.py` to store the tokens in the session and redirect back to the main page. Replace the `callback` method with the following.
+Then, update the `callback` function in `./tutorial/views.py` to store the tokens in the session and redirect back to the main page. Replace the `from tutorial.auth_helper import get_sign_in_url, get_token_from_code` line with the following.
+
+```python
+from tutorial.auth_helper import get_sign_in_url, get_token_from_code, store_token, store_user, remove_user_and_token
+```
+
+Replace the `callback` method with the following.
 
 ```python
 def callback(request):
