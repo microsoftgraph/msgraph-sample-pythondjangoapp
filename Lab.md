@@ -4,7 +4,7 @@ In this lab you will create a Python Django web application using the Azure AD v
 
 ## In this lab
 
-- [Create a Python Django web app](#exercise-1-create-a-php-web-app)
+- [Create a Python Django web app](#exercise-1-create-a-django-web-app)
 - [Register a web application with the Application Registration Portal](#exercise-2-register-a-web-application-with-the-application-registration-portal)
 - [Extend the app for Azure AD Authentication](#exercise-3-extend-the-app-for-azure-ad-authentication)
 - [Extend the app for Microsoft Graph](#exercise-4-extend-the-app-for-microsoft-graph)
@@ -21,7 +21,7 @@ If you don't have a Microsoft account, there are a couple of options to get a fr
 - You can [sign up for a new personal Microsoft account](https://signup.live.com/signup?wa=wsignin1.0&rpsnv=12&ct=1454618383&rver=6.4.6456.0&wp=MBI_SSL_SHARED&wreply=https://mail.live.com/default.aspx&id=64855&cbcxt=mai&bk=1454618383&uiflavor=web&uaid=b213a65b4fdc484382b6622b3ecaa547&mkt=E-US&lc=1033&lic=1).
 - You can [sign up for the Office 365 Developer Program](https://developer.microsoft.com/office/dev-program) to get a free Office 365 subscription.
 
-## Exercise 1: Create a PHP web app
+## Exercise 1: Create a Django web app
 
 In this exercise you will use [Django](https://www.djangoproject.com/) to build a web app. If you don't already have Django installed, you can install it from your command-line interface (CLI) with the following command.
 
