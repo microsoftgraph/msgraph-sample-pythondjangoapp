@@ -1,136 +1,79 @@
-# Extend the Python Django app for Microsoft Graph
+# How to run the completed project
 
-In this demo you will incorporate the Microsoft Graph into the application. For this application, you will use the [Requests-OAuthlib](https://requests-oauthlib.readthedocs.io/en/latest/) library to make calls to Microsoft Graph.
+## Prerequisites
 
-## Get calendar events from Outlook
+To run the completed project in this folder, you need the following:
 
-Start by adding a method to `./tutorial/graph_helper.py` to fetch the calendar events. Add the following method.
+- [Python](https://www.python.org/) (with [pip](https://pypi.org/project/pip/)) installed on your development machine. If you do not have Python, visit the previous link for download options. (**Note:** This tutorial was written with Python version 3.7.0 and Django version 2.1. The steps in this guide may work with other versions, but that has not been tested.)
+- Either a personal Microsoft account with a mailbox on Outlook.com, or a Microsoft work or school account.
 
-```python
-def get_calendar_events(token):
-  graph_client = OAuth2Session(token=token)
+If you don't have a Microsoft account, there are a couple of options to get a free account:
 
-  # Configure query parameters to
-  # modify the results
-  query_params = {
-    '$select': 'subject,organizer,start,end',
-    '$orderby': 'createdDateTime DESC'
-  }
+- You can [sign up for a new personal Microsoft account](https://signup.live.com/signup?wa=wsignin1.0&rpsnv=12&ct=1454618383&rver=6.4.6456.0&wp=MBI_SSL_SHARED&wreply=https://mail.live.com/default.aspx&id=64855&cbcxt=mai&bk=1454618383&uiflavor=web&uaid=b213a65b4fdc484382b6622b3ecaa547&mkt=E-US&lc=1033&lic=1).
+- You can [sign up for the Office 365 Developer Program](https://developer.microsoft.com/office/dev-program) to get a free Office 365 subscription.
 
-  # Send GET to /me/events
-  events = graph_client.get('{0}/me/events'.format(graph_url), params=query_params)
-  # Return the JSON result
-  return events.json()
-```
+## Register a web application with the Application Registration Portal
 
-Consider what this code is doing.
+1. Open a browser and navigate to the [Application Registration Portal](https://apps.dev.microsoft.com). Login using a **personal account** (aka: Microsoft Account) or **Work or School Account**.
 
-- The URL that will be called is `/v1.0/me/events`.
-- The `$select` parameter limits the fields returned for each events to just those the view will actually use.
-- The `$orderby` parameter sorts the results by the date and time they were created, with the most recent item being first.
+1. Select **Add an app** at the top of the page.
 
-Now create a calendar view. First change the `from tutorial.graph_helper import get_user` line to the following.
+    > **Note:** If you see more than one **Add an app** button on the page, select the one that corresponds to the **Converged apps** list.
 
-```python
-from tutorial.graph_helper import get_user, get_calendar_events
-```
+1. On the **Register your application** page, set the **Application Name** to **Python Graph Tutorial** and select **Create**.
 
-Then, add the following view to `./tutorial/views.py`.
+    ![Screenshot of creating a new app in the App Registration Portal website](/Images/arp-create-app-01.png)
 
-```python
-def calendar(request):
-  context = initialize_context(request)
+1. On the **Python Graph Tutorial Registration** page, under the **Properties** section, copy the **Application Id** as you will need it later.
 
-  token = get_token(request)
+    ![Screenshot of newly created application's ID](/Images/arp-create-app-02.png)
 
-  events = get_calendar_events(token)
+1. Scroll down to the **Application Secrets** section.
 
-  context['errors'] = [
-    { 'message': 'Events', 'debug': format(events)}
-  ]
+    1. Select **Generate New Password**.
+    1. In the **New password generated** dialog, copy the contents of the box as you will need it later.
 
-  return render(request, 'tutorial/home.html', context)
-```
+        > **Important:** This password is never shown again, so make sure you copy it now.
 
-Update `./tutorial/urls.py` to add this new view.
+    ![Screenshot of newly created application's password](/Images/arp-create-app-03.png)
 
-```python
-path('calendar', views.calendar, name='calendar'),
-```
+1. Scroll down to the **Platforms** section.
 
-Finally, update  the **Calendar** link in `./tutorial/templates/tutorial/layout.html` to link to this view. Replace the `<a class="nav-link{% if request.resolver_match.view_name == 'calendar' %} active{% endif %}" href="#">Calendar</a>` line with the following.
+    1. Select **Add Platform**.
+    1. In the **Add Platform** dialog, select **Web**.
 
-```html
-<a class="nav-link{% if request.resolver_match.view_name == 'calendar' %} active{% endif %}" href="{% url 'calendar' %}">Calendar</a>
-```
+        ![Screenshot creating a platform for the app](/Images/arp-create-app-04.png)
 
-Now you can test this. Sign in and click the **Calendar** link in the nav bar. If everything works, you should see a JSON dump of events on the user's calendar.
+    1. In the **Web** platform box, enter the URL `http://localhost:8000/tutorial/callback` for the **Redirect URLs**.
 
-## Display the results
+        ![Screenshot of the newly added Web platform for the application](/Images/arp-create-app-05.png)
 
-Now you can add a template to display the results in a more user-friendly manner. Create a new file in the `./tutorial/templates/tutorial` directory named `calendar.html` and add the following code.
+1. Scroll to the bottom of the page and select **Save**.
 
-```html
-{% extends "tutorial/layout.html" %}
-{% block content %}
-<h1>Calendar</h1>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Organizer</th>
-      <th scope="col">Subject</th>
-      <th scope="col">Start</th>
-      <th scope="col">End</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% if events %}
-      {% for event in events %}
-        <tr>
-          <td>{{ event.organizer.emailAddress.name }}</td>
-          <td>{{ event.subject }}</td>
-          <td>{{ event.start.dateTime|date:'SHORT_DATETIME_FORMAT' }}</td>
-          <td>{{ event.end.dateTime|date:'SHORT_DATETIME_FORMAT' }}</td>
-        </tr>
-      {% endfor %}
-    {% endif %}
-  </tbody>
-</table>
-{% endblock %}
-```
+## Configure the sample
 
-That will loop through a collection of events and add a table row for each one. Add the following `import` statement to the top of the `./tutorials/views.py` file.
+1. Rename the `oauth_settings.yml.example` file to `oauth_settings.yml`.
+1. Edit the `oauth_settings.yml` file and make the following changes.
+    1. Replace `YOUR_APP_ID_HERE` with the **Application Id** you got from the App Registration Portal.
+    1. Replace `YOUR_APP_PASSWORD_HERE` with the password you got from the App Registration Portal.
+1. In your command-line interface (CLI), navigate to this directory and run the following command to install requirements.
 
-```python
-import dateutil.parser
-```
+    ```Shell
+    pip install -r requirements.txt
+    ```
 
-Replace the `calendar` view in `./tutorial/views.py` with the following code.
+1. In your CLI, run the following command to initialize the app's database.
 
-```python
-def calendar(request):
-  context = initialize_context(request)
+    ```Shell
+    python manage.py migrate
+    ```
 
-  token = get_token(request)
+## Run the sample
 
-  events = get_calendar_events(token)
+1. Run the following command in your CLI to start the application.
 
-  if events:
-    # Convert the ISO 8601 date times to a datetime object
-    # This allows the Django template to format the value nicely
-    for event in events['value']:
-      event['start']['dateTime'] = dateutil.parser.parse(event['start']['dateTime'])
-      event['end']['dateTime'] = dateutil.parser.parse(event['end']['dateTime'])
+    ```Shell
+    python manage.py runserver
+    ```
 
-    context['events'] = events['value']
-
-  return render(request, 'tutorial/calendar.html', context)
-```
-
-Refresh the page and the app should now render a table of events.
-
-![A screenshot of the table of events](/Images/add-msgraph-01.png)
-
-## Next steps
-
-Now that you have a working app that calls Microsoft Graph, you can experiment and add new features. Visit the [Microsoft Graph documentation](https://developer.microsoft.com/graph/docs/concepts/overview) to see all of the data you can access with Microsoft Graph.
+1. Open a browser and browse to `http://localhost:8000/tutorial`.
