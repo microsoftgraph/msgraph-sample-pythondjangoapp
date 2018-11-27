@@ -1,6 +1,6 @@
-# Extend the Python Django app for Azure AD Authentication
+<!-- markdownlint-disable MD002 MD041 -->
 
-In this demo you will extend the application from the previous demo to support authentication with Azure AD. This is required to obtain the necessary OAuth access token to call the Microsoft Graph. In this step you will integrate the [Requests-OAuthlib](https://requests-oauthlib.readthedocs.io/en/latest/) library into the application.
+In this exercise you will extend the application from the previous exercise to support authentication with Azure AD. This is required to obtain the necessary OAuth access token to call the Microsoft Graph. In this step you will integrate the [Requests-OAuthlib](https://requests-oauthlib.readthedocs.io/en/latest/) library into the application.
 
 Create a new file in the root of the project named `oauth_settings.yml`, and add the following content.
 
@@ -16,7 +16,8 @@ token_endpoint: /oauth2/v2.0/token
 
 Replace `YOUR_APP_ID_HERE` with the application ID from the Application Registration Portal, and replace `YOUR_APP_SECRET_HERE` with the password you generated.
 
-> **Important:** If you're using source control such as git, now would be a good time to exclude the `oauth_settings.yml` file from source control to avoid inadvertently leaking your app ID and password.
+> [!IMPORTANT]
+> If you're using source control such as git, now would be a good time to exclude the `oauth_settings.yml` file from source control to avoid inadvertently leaking your app ID and password.
 
 ## Implement sign-in
 
@@ -250,11 +251,11 @@ Update the **Sign Out** link in `./tutorial/templates/tutorial/layout.html` to u
 
 Restart the server and go through the sign-in process. You should end up back on the home page, but the UI should change to indicate that you are signed-in.
 
-![A screenshot of the home page after signing in](/Images/add-aad-auth-01.png)
+![A screenshot of the home page after signing in](./images/add-aad-auth-01.png)
 
 Click the user avatar in the top right corner to access the **Sign Out** link. Clicking **Sign Out** resets the session and returns you to the home page.
 
-![A screenshot of the dropdown menu with the Sign Out link](/Images/add-aad-auth-02.png)
+![A screenshot of the dropdown menu with the Sign Out link](./images/add-aad-auth-02.png)
 
 ## Refreshing tokens
 
@@ -297,7 +298,3 @@ def get_token(request):
 ```
 
 This method first checks if the access token is expired or close to expiring. If it is, then it uses the refresh token to get new tokens, then updates the cache and returns the new access token.
-
-## Next steps
-
-Now that you've added authentication, you can continue to the next module, [Extend the Python Django app for Microsoft Graph](../04-add-msgraph/README.md).
