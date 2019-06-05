@@ -40,7 +40,7 @@ os.environ['OAUTHLIB_IGNORE_SCOPE_CHANGE'] = '1'
 
 # Load the oauth_settings.yml file
 stream = open('oauth_settings.yml', 'r')
-settings = yaml.load(stream)
+settings = yaml.load(stream, yaml.SafeLoader)
 authorize_url = '{0}{1}'.format(settings['authority'], settings['authorize_endpoint'])
 token_url = '{0}{1}'.format(settings['authority'], settings['token_endpoint'])
 
