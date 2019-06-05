@@ -13,7 +13,7 @@ This tutorial teaches you how to build a Python Django web app that uses the Mic
 Before you start this tutorial, you should have [Python](https://www.python.org/) (with [pip](https://pypi.org/project/pip/)) installed on your development machine. If you do not have Python, visit the previous link for download options.
 
 > [!NOTE]
-> This tutorial was written with Python version 3.7.0 and Django version 2.2. The steps in this guide may work with other versions, but that has not been tested.
+> This tutorial was written with Python version 3.7.0 and Django version 2.2.2. The steps in this guide may work with other versions, but that has not been tested.
 
 ## Feedback
 

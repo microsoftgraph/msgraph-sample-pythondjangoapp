@@ -3,13 +3,13 @@
 In this exercise you will use [Django](https://www.djangoproject.com/) to build a web app. If you don't already have Django installed, you can install it from your command-line interface (CLI) with the following command.
 
 ```Shell
-pip install Django
+pip install Django=2.2.2
 ```
 
 Open your CLI, navigate to a directory where you have rights to create files, and run the following command to create a new Django app.
 
 ```Shell
-django-admin.py startproject graph_tutorial
+django-admin startproject graph_tutorial
 ```
 
 Django creates a new directory called `graph_tutorial` and scaffolds a Django web app. Navigate to this new directory and enter the following command to start a local web server.
@@ -93,9 +93,9 @@ Before moving on, install some additional libraries that you will use later:
 Run the following command in your CLI.
 
 ```Shell
-pip install requests_oauthlib
-pip install pyyaml
-pip install python-dateutil
+pip install requests_oauthlib==1.2.0
+pip install pyyaml=5.1
+pip install python-dateutil==2.8.0
 ```
 
 ## Design the app
