@@ -94,7 +94,7 @@ Run the following command in your CLI.
 
 ```Shell
 pip install requests_oauthlib==1.2.0
-pip install pyyaml=5.1
+pip install pyyaml==5.1
 pip install python-dateutil==2.8.0
 ```
 
