@@ -3,7 +3,7 @@
 In this exercise you will use [Django](https://www.djangoproject.com/) to build a web app. If you don't already have Django installed, you can install it from your command-line interface (CLI) with the following command.
 
 ```Shell
-pip install Django=2.2.2
+pip install Django=2.2.5
 ```
 
 Open your CLI, navigate to a directory where you have rights to create files, and run the following command to create a new Django app.
