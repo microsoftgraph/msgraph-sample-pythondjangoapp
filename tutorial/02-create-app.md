@@ -75,6 +75,7 @@ urlpatterns = [
 Finally add a temporary view to the `tutorials` app to verify that URL routing is working. Open the `./tutorial/views.py` file and add the following code.
 
 ```python
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
 def home(request):
