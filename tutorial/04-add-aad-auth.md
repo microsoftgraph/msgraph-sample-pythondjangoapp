@@ -5,13 +5,13 @@ In this exercise you will extend the application from the previous exercise to s
 Create a new file in the root of the project named `oauth_settings.yml`, and add the following content.
 
 ```text
-app_id: YOUR_APP_ID_HERE
-app_secret: YOUR_APP_PASSWORD_HERE
-redirect: http://localhost:8000/tutorial/callback
-scopes: openid profile offline_access user.read calendars.read
-authority: https://login.microsoftonline.com/common
-authorize_endpoint: /oauth2/v2.0/authorize
-token_endpoint: /oauth2/v2.0/token
+app_id: "YOUR_APP_ID_HERE"
+app_secret: "YOUR_APP_PASSWORD_HERE"
+redirect: "http://localhost:8000/tutorial/callback"
+scopes: "openid profile offline_access user.read calendars.read"
+authority: "https://login.microsoftonline.com/common"
+authorize_endpoint: "/oauth2/v2.0/authorize"
+token_endpoint: "/oauth2/v2.0/token"
 ```
 
 Replace `YOUR_APP_ID_HERE` with the application ID from the Application Registration Portal, and replace `YOUR_APP_SECRET_HERE` with the password you generated.
