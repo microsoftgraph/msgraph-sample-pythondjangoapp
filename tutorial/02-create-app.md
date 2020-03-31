@@ -44,7 +44,7 @@ pip install Django==3.0.4
     from . import views
 
     urlpatterns = [
-      # /tutorial
+      # /
       path('', views.home, name='home'),
       # TEMPORARY
       path('signin', views.home, name='signin'),
