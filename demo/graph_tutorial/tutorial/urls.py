@@ -12,5 +12,5 @@ urlpatterns = [
   path('signin', views.sign_in, name='signin'),
   path('signout', views.sign_out, name='signout'),
   path('callback', views.callback, name='callback'),
-  path('calendar', views.home, name='calendar'),
+  path('calendar', views.calendar, name='calendar'),
 ]

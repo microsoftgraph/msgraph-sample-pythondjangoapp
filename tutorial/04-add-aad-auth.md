@@ -141,7 +141,7 @@ Now that you can get tokens, it's time to implement a way to store them in the a
 
     :::code language="python" source="../demo/graph_tutorial/tutorial/views.py" id="SignOutViewSnippet":::
 
-1. Open **./tutorial/urls.py** and replace the existing `path` statements for `signout` with the following..
+1. Open **./tutorial/urls.py** and replace the existing `path` statements for `signout` with the following.
 
     ```python
     path('signout', views.sign_out, name='signout'),
