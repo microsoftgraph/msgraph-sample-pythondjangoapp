@@ -1,7 +1,6 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
 
-# <UrlConfSnippet>
 from django.urls import path
 
 from . import views
@@ -10,8 +9,8 @@ urlpatterns = [
   # /
   path('', views.home, name='home'),
   # TEMPORARY
-  path('signin', views.home, name='signin'),
-  path('signout', views.home, name='signout'),
+  path('signin', views.sign_in, name='signin'),
+  path('signout', views.sign_out, name='signout'),
+  path('callback', views.callback, name='callback'),
   path('calendar', views.home, name='calendar'),
 ]
-# </UrlConfSnippet>
