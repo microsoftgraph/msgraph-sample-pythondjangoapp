@@ -1,10 +1,12 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-In this exercise you will use [Django](https://www.djangoproject.com/) to build a web app. If you don't already have Django installed, you can install it from your command-line interface (CLI) with the following command.
+In this exercise you will use [Django](https://www.djangoproject.com/) to build a web app.
 
-```Shell
-pip install Django==3.0.4
-```
+1. If you don't already have Django installed, you can install it from your command-line interface (CLI) with the following command.
+
+    ```Shell
+    pip install Django==3.0.4
+    ```
 
 1. Open your CLI, navigate to a directory where you have rights to create files, and run the following command to create a new Django app.
 
@@ -57,16 +59,16 @@ pip install Django==3.0.4
 
     :::code language="python" source="../demo/graph_tutorial/graph_tutorial/urls.py" id="UrlConfSnippet":::
 
-Finally add a temporary view to the `tutorials` app to verify that URL routing is working. Open **./tutorial/views.py** and add the following code.
+1. Add a temporary view to the `tutorials` app to verify that URL routing is working. Open **./tutorial/views.py** and add the following code.
 
-```python
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+    ```python
+    from django.shortcuts import render
+    from django.http import HttpResponse, HttpResponseRedirect
 
-def home(request):
-  # Temporary!
-  return HttpResponse("Welcome to the tutorial.")
-```
+    def home(request):
+      # Temporary!
+      return HttpResponse("Welcome to the tutorial.")
+    ```
 
 Save all of your changes and restart the server. Browse to `http://localhost:8000`. You should see `Welcome to the tutorial.`
 

@@ -65,6 +65,6 @@ Now you can add a template to display the results in a more user-friendly manner
 
     :::code language="python" source="../demo/graph_tutorial/tutorial/views.py" id="CalendarViewSnippet":::
 
-Refresh the page and the app should now render a table of events.
+1. Refresh the page and the app should now render a table of events.
 
-![A screenshot of the table of events](./images/add-msgraph-01.png)
+    ![A screenshot of the table of events](./images/add-msgraph-01.png)
