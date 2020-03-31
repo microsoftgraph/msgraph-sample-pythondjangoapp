@@ -1,0 +1,17 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+# <UrlConfSnippet>
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+  # /tutorial
+  path('', views.home, name='home'),
+  # TEMPORARY
+  path('signin', views.home, name='signin'),
+  path('signout', views.home, name='signout'),
+  path('calendar', views.home, name='calendar'),
+]
+# </UrlConfSnippet>
