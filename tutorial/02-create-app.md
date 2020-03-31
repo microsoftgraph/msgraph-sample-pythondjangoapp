@@ -70,7 +70,7 @@ In this exercise you will use [Django](https://www.djangoproject.com/) to build 
       return HttpResponse("Welcome to the tutorial.")
     ```
 
-Save all of your changes and restart the server. Browse to `http://localhost:8000`. You should see `Welcome to the tutorial.`
+1. Save all of your changes and restart the server. Browse to `http://localhost:8000`. You should see `Welcome to the tutorial.`
 
 ## Install libraries
 
