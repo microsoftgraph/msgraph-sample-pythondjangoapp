@@ -12,7 +12,7 @@ In this exercise, you will create a new Azure AD web application registration us
 
     - Set **Name** to `Python Graph Tutorial`.
     - Set **Supported account types** to **Accounts in any organizational directory and personal Microsoft accounts**.
-    - Under **Redirect URI**, set the first drop-down to `Web` and set the value to `http://localhost:8000/tutorial/callback`.
+    - Under **Redirect URI**, set the first drop-down to `Web` and set the value to `http://localhost:8000/callback`.
 
     ![A screenshot of the Register an application page](./images/aad-register-an-app.png)
 
