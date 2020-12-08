@@ -106,3 +106,44 @@ def calendar(request):
 
   return render(request, 'tutorial/calendar.html', context)
 # </CalendarViewSnippet>
+
+# <NewEventViewSnippet>
+def newevent(request):
+  context = initialize_context(request)
+  user = context['user']
+
+  if request.method == 'POST':
+    # Validate the form values
+    # Required values
+    if (not request.POST['ev-subject']) or \
+       (not request.POST['ev-start']) or \
+       (not request.POST['ev-end']):
+      context['errors'] = [
+        { 'message': 'Invalid values', 'debug': 'The subject, start, and end fields are required.'}
+      ]
+      return render(request, 'tutorial/newevent.html', context)
+
+    attendees = None
+    if request.POST['ev-attendees']:
+      attendees = request.POST['ev-attendees'].split(';')
+    body = request.POST['ev-body']
+
+    # Create the event
+    token = get_token(request)
+
+    create_event(
+      token,
+      request.POST['ev-subject'],
+      request.POST['ev-start'],
+      request.POST['ev-end'],
+      attendees,
+      request.POST['ev-body'],
+      user['timeZone'])
+
+    # Redirect back to calendar view
+    return HttpResponseRedirect(reverse('calendar'))
+  else:
+    # Render the form
+    return render(request, 'tutorial/newevent.html', context)
+  print('hello')
+# </NewEventViewSnippet>
