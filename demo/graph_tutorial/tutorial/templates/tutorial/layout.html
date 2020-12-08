@@ -45,7 +45,7 @@
             </li>
             {% if user.is_authenticated %}
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link avatar-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                   {% if user.avatar %}
                     <img src="{{ user.avatar }}" class="rounded-circle align-self-center mr-2" style="width: 32px;">
                   {% else %}

@@ -11,3 +11,8 @@ body {
 .external-link {
   padding-top: 6px;
 }
+
+.avatar-link {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
