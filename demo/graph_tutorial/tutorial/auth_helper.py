@@ -7,27 +7,30 @@ import msal
 import os
 import time
 
-# This is necessary for testing with non-HTTPS localhost
-# Remove this if deploying to production
-#os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-
-# This is necessary because Azure does not guarantee
-# to return scopes in the same case and order as requested
-#os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
-#os.environ['OAUTHLIB_IGNORE_SCOPE_CHANGE'] = '1'
-
 # Load the oauth_settings.yml file
 stream = open('oauth_settings.yml', 'r')
 settings = yaml.load(stream, yaml.SafeLoader)
-authorize_url = '{0}{1}'.format(settings['authority'], settings['authorize_endpoint'])
-token_url = '{0}{1}'.format(settings['authority'], settings['token_endpoint'])
 
-def get_msal_app():
+def load_cache(request):
+  # Check for a token cache in the session
+  cache = msal.SerializableTokenCache()
+  if request.session.get('token_cache'):
+    cache.deserialize(request.session['token_cache'])
+
+  return cache
+
+def save_cache(request, cache):
+  # If cache has changed, persist back to session
+  if cache.has_state_changed:
+    request.session['token_cache'] = cache.serialize()
+
+def get_msal_app(cache=None):
   # Initialize the MSAL confidential client
   auth_app = msal.ConfidentialClientApplication(
     settings['app_id'],
     authority=settings['authority'],
-    client_credential=settings['app_secret'])
+    client_credential=settings['app_secret'],
+    token_cache=cache)
 
   return auth_app
 
@@ -40,10 +43,17 @@ def get_sign_in_flow():
     redirect_uri=settings['redirect'])
 
 # Method to exchange auth code for access token
-def get_token_from_code(flow, query):
-  auth_app = get_msal_app()
+def get_token_from_code(request):
+  cache = load_cache(request)
+  auth_app = get_msal_app(cache)
 
-  return auth_app.acquire_token_by_auth_code_flow(flow, query)
+  # Get the flow saved in session
+  flow = request.session.pop('auth_flow', {})
+
+  result = auth_app.acquire_token_by_auth_code_flow(flow, request.GET)
+  save_cache(request, cache)
+
+  return result
 # </FirstCodeSnippet>
 
 # <SecondCodeSnippet>
@@ -55,22 +65,23 @@ def store_user(request, user):
     'timeZone': user['mailboxSettings']['timeZone']
   }
 
-def get_token():
-  auth_app = get_msal_app()
+def get_token(request):
+  cache = load_cache(request)
+  auth_app = get_msal_app(cache)
 
   accounts = auth_app.get_accounts()
   if accounts:
-    print(format(accounts))
     result = auth_app.acquire_token_silent(
       settings['scopes'],
       account=accounts[0])
 
-    print(result)
+    save_cache(request, cache)
 
     return result['access_token']
 
 def remove_user_and_token(request):
-  auth_app = get_msal_app()
+  if 'token_cache' in request.session:
+    del request.session['token_cache']
 
   if 'user' in request.session:
     del request.session['user']

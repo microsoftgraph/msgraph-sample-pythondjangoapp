@@ -19,10 +19,9 @@ In this exercise you will extend the application from the previous exercise to s
 
     This file will hold all of your authentication-related methods. The `get_sign_in_flow` generates an authorization URL, and the `get_token_from_code` method exchanges the authorization response for an access token.
 
-1. Add the following `import` statements to the top of **./tutorial/views.py**.
+1. Add the following `import` statement to the top of **./tutorial/views.py**.
 
     ```python
-    from django.urls import reverse
     from tutorial.auth_helper import get_sign_in_flow, get_token_from_code
     ```
 
@@ -34,10 +33,8 @@ In this exercise you will extend the application from the previous exercise to s
 
     ```python
     def callback(request):
-      # Get the flow saved in session
-      flow = request.session.pop('auth_flow', {})
       # Make the token request
-      result = get_token_from_code(flow, request.GET)
+      result = get_token_from_code(request)
       # Temporary! Save the response in an error so it's displayed
       request.session['flash_error'] = { 'message': 'Token retrieved', 'debug': format(result) }
       return HttpResponseRedirect(reverse('home'))
@@ -74,17 +71,15 @@ In this exercise you will extend the application from the previous exercise to s
 1. Update the `callback` method in **./tutorial/views.py** to get the user's profile from Microsoft Graph. Add the following `import` statement to the top of the file.
 
     ```python
-    from tutorial.graph_helper import get_user
+    from tutorial.graph_helper import *
     ```
 
 1. Replace the `callback` method with the following code.
 
     ```python
     def callback(request):
-      # Get the flow saved in session
-      flow = request.session.pop('auth_flow', {})
       # Make the token request
-      result = get_token_from_code(flow, request.GET)
+      result = get_token_from_code(request)
 
       #Get the user's profile
       user = get_user(result['access_token'])
@@ -93,17 +88,13 @@ In this exercise you will extend the application from the previous exercise to s
       return HttpResponseRedirect(reverse('home'))
     ```
 
-The new code calls the `get_user` method to request the user's profile. It adds the user object to the temporary output for testing.
-
-## Storing the tokens
-
-Now that you can get tokens, it's time to implement a way to store them in the app. Since this is a sample app, for simplicity's sake, you'll store them in the session. A real-world app would use a more reliable secure storage solution, like a database.
+    The new code calls the `get_user` method to request the user's profile. It adds the user object to the temporary output for testing.
 
 1. Add the following new methods to **./tutorial/auth_helper.py**.
 
     :::code language="python" source="../demo/graph_tutorial/tutorial/auth_helper.py" id="SecondCodeSnippet":::
 
-1. Update the `callback` function in **./tutorial/views.py** to store the tokens in the session and redirect back to the main page. Replace the `from tutorial.auth_helper import get_sign_in_url, get_token_from_code` line with the following.
+1. Update the `callback` function in **./tutorial/views.py** to store the user in the session and redirect back to the main page. Replace the `from tutorial.auth_helper import get_sign_in_url, get_token_from_code` line with the following.
 
     ```python
     from tutorial.auth_helper import get_sign_in_url, get_token_from_code, store_user, remove_user_and_token, get_token
