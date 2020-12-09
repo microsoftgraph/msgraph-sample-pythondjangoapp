@@ -7,3 +7,12 @@ body {
   word-break: break-all;
   white-space: pre-wrap;
 }
+
+.external-link {
+  padding-top: 6px;
+}
+
+.avatar-link {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}

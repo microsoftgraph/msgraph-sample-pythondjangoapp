@@ -3,97 +3,86 @@
 
 # <FirstCodeSnippet>
 import yaml
-from requests_oauthlib import OAuth2Session
+import msal
 import os
 import time
-
-# This is necessary for testing with non-HTTPS localhost
-# Remove this if deploying to production
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-
-# This is necessary because Azure does not guarantee
-# to return scopes in the same case and order as requested
-os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
-os.environ['OAUTHLIB_IGNORE_SCOPE_CHANGE'] = '1'
 
 # Load the oauth_settings.yml file
 stream = open('oauth_settings.yml', 'r')
 settings = yaml.load(stream, yaml.SafeLoader)
-authorize_url = '{0}{1}'.format(settings['authority'], settings['authorize_endpoint'])
-token_url = '{0}{1}'.format(settings['authority'], settings['token_endpoint'])
 
-# Method to generate a sign-in url
-def get_sign_in_url():
-  # Initialize the OAuth client
-  aad_auth = OAuth2Session(settings['app_id'],
-    scope=settings['scopes'],
+def load_cache(request):
+  # Check for a token cache in the session
+  cache = msal.SerializableTokenCache()
+  if request.session.get('token_cache'):
+    cache.deserialize(request.session['token_cache'])
+
+  return cache
+
+def save_cache(request, cache):
+  # If cache has changed, persist back to session
+  if cache.has_state_changed:
+    request.session['token_cache'] = cache.serialize()
+
+def get_msal_app(cache=None):
+  # Initialize the MSAL confidential client
+  auth_app = msal.ConfidentialClientApplication(
+    settings['app_id'],
+    authority=settings['authority'],
+    client_credential=settings['app_secret'],
+    token_cache=cache)
+
+  return auth_app
+
+# Method to generate a sign-in flow
+def get_sign_in_flow():
+  auth_app = get_msal_app()
+
+  return auth_app.initiate_auth_code_flow(
+    settings['scopes'],
     redirect_uri=settings['redirect'])
-
-  sign_in_url, state = aad_auth.authorization_url(authorize_url, prompt='login')
-
-  return sign_in_url, state
 
 # Method to exchange auth code for access token
-def get_token_from_code(callback_url, expected_state):
-  # Initialize the OAuth client
-  aad_auth = OAuth2Session(settings['app_id'],
-    state=expected_state,
-    scope=settings['scopes'],
-    redirect_uri=settings['redirect'])
+def get_token_from_code(request):
+  cache = load_cache(request)
+  auth_app = get_msal_app(cache)
 
-  token = aad_auth.fetch_token(token_url,
-    client_secret = settings['app_secret'],
-    authorization_response=callback_url)
+  # Get the flow saved in session
+  flow = request.session.pop('auth_flow', {})
 
-  return token
+  result = auth_app.acquire_token_by_auth_code_flow(flow, request.GET)
+  save_cache(request, cache)
 
+  return result
 # </FirstCodeSnippet>
 
-def store_token(request, token):
-      request.session['oauth_token'] = token
-
+# <SecondCodeSnippet>
 def store_user(request, user):
   request.session['user'] = {
     'is_authenticated': True,
     'name': user['displayName'],
-    'email': user['mail'] if (user['mail'] != None) else user['userPrincipalName']
+    'email': user['mail'] if (user['mail'] != None) else user['userPrincipalName'],
+    'timeZone': user['mailboxSettings']['timeZone']
   }
 
-# <GetTokenSnippet>
 def get_token(request):
-  token = request.session['oauth_token']
-  if token != None:
-    # Check expiration
-    now = time.time()
-    # Subtract 5 minutes from expiration to account for clock skew
-    expire_time = token['expires_at'] - 300
-    if now >= expire_time:
-      # Refresh the token
-      aad_auth = OAuth2Session(settings['app_id'],
-        token = token,
-        scope=settings['scopes'],
-        redirect_uri=settings['redirect'])
+  cache = load_cache(request)
+  auth_app = get_msal_app(cache)
 
-      refresh_params = {
-        'client_id': settings['app_id'],
-        'client_secret': settings['app_secret'],
-      }
-      new_token = aad_auth.refresh_token(token_url, **refresh_params)
+  accounts = auth_app.get_accounts()
+  if accounts:
+    result = auth_app.acquire_token_silent(
+      settings['scopes'],
+      account=accounts[0])
 
-      # Save new token
-      store_token(request, new_token)
+    save_cache(request, cache)
 
-      # Return new access token
-      return new_token
-
-    else:
-      # Token still valid, just return it
-      return token
-# </GetTokenSnippet>
+    return result['access_token']
 
 def remove_user_and_token(request):
-  if 'oauth_token' in request.session:
-    del request.session['oauth_token']
+  if 'token_cache' in request.session:
+    del request.session['token_cache']
 
   if 'user' in request.session:
     del request.session['user']
+# </SecondCodeSnippet>

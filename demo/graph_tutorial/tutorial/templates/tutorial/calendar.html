@@ -5,6 +5,7 @@
 {% extends "tutorial/layout.html" %}
 {% block content %}
 <h1>Calendar</h1>
+<a href="/calendar/new" class="btn btn-light btn-sm mb-3">New event</a>
 <table class="table">
   <thead>
     <tr>
@@ -20,8 +21,8 @@
         <tr>
           <td>{{ event.organizer.emailAddress.name }}</td>
           <td>{{ event.subject }}</td>
-          <td>{{ event.start.dateTime|date:'SHORT_DATETIME_FORMAT' }}</td>
-          <td>{{ event.end.dateTime|date:'SHORT_DATETIME_FORMAT' }}</td>
+          <td>{{ event.start.dateTime|date:'n/d/Y g:i A' }}</td>
+          <td>{{ event.end.dateTime|date:'n/d/Y g:i A' }}</td>
         </tr>
       {% endfor %}
     {% endif %}
