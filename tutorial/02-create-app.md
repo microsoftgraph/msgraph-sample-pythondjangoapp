@@ -125,6 +125,8 @@ Before moving on, install some additional libraries that you will use later:
 
     :::code language="python" source="../demo/graph_tutorial/tutorial/views.py" id="HomeViewSnippet":::
 
+1. Add a PNG file named **no-profile-photo.png** in the **./tutorial/static/tutorial** directory.
+
 1. Save all of your changes and restart the server. Now, the app should look very different.
 
     ![A screenshot of the redesigned home page](./images/create-app-01.png)
