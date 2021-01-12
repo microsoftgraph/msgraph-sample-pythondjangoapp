@@ -34,7 +34,10 @@ def sign_in(request):
   # Get the sign-in flow
   flow = get_sign_in_flow()
   # Save the expected flow so we can use it in the callback
-  request.session['auth_flow'] = flow
+  try:
+    request.session['auth_flow'] = flow
+  except Exception as e:
+    print(e)
   # Redirect to the Azure sign-in page
   return HttpResponseRedirect(flow['auth_uri'])
 # </SignInViewSnippet>
