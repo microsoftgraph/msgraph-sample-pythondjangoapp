@@ -94,10 +94,10 @@ In this exercise you will extend the application from the previous exercise to s
 
     :::code language="python" source="../demo/graph_tutorial/tutorial/auth_helper.py" id="SecondCodeSnippet":::
 
-1. Update the `callback` function in **./tutorial/views.py** to store the user in the session and redirect back to the main page. Replace the `from tutorial.auth_helper import get_sign_in_url, get_token_from_code` line with the following.
+1. Update the `callback` function in **./tutorial/views.py** to store the user in the session and redirect back to the main page. Replace the `from tutorial.auth_helper import get_sign_in_flow, get_token_from_code` line with the following.
 
     ```python
-    from tutorial.auth_helper import get_sign_in_url, get_token_from_code, store_user, remove_user_and_token, get_token
+    from tutorial.auth_helper import get_sign_in_flow, get_token_from_code, store_user, remove_user_and_token, get_token
     ```
 
 1. Replace the `callback` method with the following.
