@@ -5,7 +5,7 @@ In this exercise you will use [Django](https://www.djangoproject.com/) to build 
 1. If you don't already have Django installed, you can install it from your command-line interface (CLI) with the following command.
 
     ```Shell
-    pip install --user Django==3.1.4
+    pip install Django==3.1.7
     ```
 
 1. Open your CLI, navigate to a directory where you have rights to create files, and run the following command to create a new Django app.
@@ -66,7 +66,6 @@ In this exercise you will use [Django](https://www.djangoproject.com/) to build 
     from django.http import HttpResponse, HttpResponseRedirect
     from django.urls import reverse
     from datetime import datetime, timedelta
-    from dateutil import tz, parser
 
     def home(request):
       # Temporary!
@@ -80,16 +79,14 @@ In this exercise you will use [Django](https://www.djangoproject.com/) to build 
 Before moving on, install some additional libraries that you will use later:
 
 - [Microsoft Authentication Library (MSAL) for Python](https://github.com/AzureAD/microsoft-authentication-library-for-python) for handling sign-in and OAuth token flows.
-- [Requests: HTTP for Humans](https://requests.readthedocs.io/en/master/) for making calls to Microsoft Graph.
 - [PyYAML](https://pyyaml.org/wiki/PyYAMLDocumentation) for loading configuration from a YAML file.
 - [python-dateutil](https://pypi.org/project/python-dateutil/) for parsing ISO 8601 date strings returned from Microsoft Graph.
 
 1. Run the following command in your CLI.
 
     ```Shell
-    pip install msal==1.7.0
-    pip install requests==2.25.0
-    pip install pyyaml==5.3.1
+    pip install msal==1.10.0
+    pip install pyyaml==5.4.1
     pip install python-dateutil==2.8.1
     ```
 

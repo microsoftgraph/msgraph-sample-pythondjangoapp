@@ -19,9 +19,10 @@ In this exercise you will extend the application from the previous exercise to s
 
     This file will hold all of your authentication-related methods. The `get_sign_in_flow` generates an authorization URL, and the `get_token_from_code` method exchanges the authorization response for an access token.
 
-1. Add the following `import` statement to the top of **./tutorial/views.py**.
+1. Add the following `import` statements to the top of **./tutorial/views.py**.
 
     ```python
+    from dateutil import tz, parser
     from tutorial.auth_helper import get_sign_in_flow, get_token_from_code
     ```
 
