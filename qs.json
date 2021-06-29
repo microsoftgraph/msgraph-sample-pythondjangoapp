@@ -1,7 +1,7 @@
 {
-  "sourceDirectory": ".\\demo",
-  "exampleConfigFile": ".\\graph_tutorial\\oauth_settings.yml.example",
+  "sourceDirectory": "./demo",
+  "exampleConfigFile": "./graph_tutorial/oauth_settings.yml.example",
   "configFile": "oauth_settings.yml",
   "archiveFile": "PythonDjangoQuickStart.zip",
-  "zipReadMe": ".\\README.md"
+  "zipReadMe": "./README.md"
 }
