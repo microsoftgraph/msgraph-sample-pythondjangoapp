@@ -59,7 +59,7 @@ In this exercise you will extend the application from the previous exercise to s
     path('callback', views.callback, name='callback'),
     ```
 
-1. Start the server and browse to `https://localhost:8000`. Click the sign-in button and you should be redirected to `https://login.microsoftonline.com`. Login with your Microsoft account and consent to the requested permissions. The browser redirects to the app, showing the response, including the access token.
+1. Start the server and browse to `http://localhost:8000`. Click the sign-in button and you should be redirected to `https://login.microsoftonline.com`. Login with your Microsoft account and consent to the requested permissions. The browser redirects to the app, showing the response, including the access token.
 
 ### Get user details
 
