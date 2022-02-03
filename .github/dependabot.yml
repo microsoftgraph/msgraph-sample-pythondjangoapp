@@ -5,7 +5,7 @@
 
 version: 2
 updates:
-  - package-ecosystem: "composer" # See documentation for possible values
-    directory: "/demo/graph-tutorial/" # Location of package manifests
+  - package-ecosystem: "pip" # See documentation for possible values
+    directory: "/demo/graph_tutorial/" # Location of package manifests
     schedule:
       interval: "daily"
