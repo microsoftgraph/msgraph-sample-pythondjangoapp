@@ -1,9 +1,9 @@
-asgiref==3.3.4
+asgiref==3.5.0
 certifi==2020.12.5
 cffi==1.14.5
 chardet==4.0.0
 cryptography==3.4.6
-Django==3.2
+Django==3.2.12
 idna==2.10
 msal==1.10.0
 pycparser==2.20
@@ -13,5 +13,6 @@ pytz==2021.1
 PyYAML==5.4.1
 requests==2.25.1
 six==1.15.0
-sqlparse==0.4.1
-urllib3==1.26.4
+sqlparse==0.4.2
+tzdata==2021.5
+urllib3==1.26.5
