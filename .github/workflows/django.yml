@@ -1,0 +1,37 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+  
+    defaults:
+      run:
+        working-directory: demo/graph_tutorial
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Copy settings file
+      run: |
+        cp oauth_settings.yml.example oauth_settings.yml
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run Tests
+      run: |
+        python manage.py test
