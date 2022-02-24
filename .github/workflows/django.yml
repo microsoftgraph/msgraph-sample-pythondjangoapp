@@ -8,6 +8,10 @@ on:
 
 jobs:
   build:
+  
+    defaults:
+      run:
+        working-directory: demo/graph_tutorial
 
     runs-on: ubuntu-latest
     strategy:
