@@ -4,7 +4,7 @@ cffi==1.15.0
 chardet==4.0.0
 cryptography==36.0.1
 Django==3.2.12
-idna==2.10
+idna==3.3
 msal==1.17.0
 pycparser==2.21
 PyJWT==2.3.0
