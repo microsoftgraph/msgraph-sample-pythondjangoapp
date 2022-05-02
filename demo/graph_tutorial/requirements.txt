@@ -1,4 +1,4 @@
-asgiref==3.5.0
+asgiref==3.5.1
 certifi==2021.10.8
 cffi==1.15.0
 chardet==4.0.0
