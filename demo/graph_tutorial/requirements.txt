@@ -3,7 +3,7 @@ certifi==2021.10.8
 cffi==1.15.1
 chardet==4.0.0
 cryptography==36.0.2
-Django==3.2.13
+Django==3.2.14
 idna==3.3
 msal==1.18.0
 pycparser==2.21
