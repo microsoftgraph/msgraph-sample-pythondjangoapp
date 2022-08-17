@@ -41,6 +41,7 @@ If you don't have a Microsoft account, there are a couple of options to get a fr
 
     > **IMPORTANT**
     > This client secret is never shown again, so make sure you copy it now.
+## Configure the sample
 
 ## Run the sample
 
