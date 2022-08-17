@@ -10,12 +10,12 @@ languages:
 ---
 # Build Python Django apps with Microsoft Graph
 
-This module uses Microsoft Graph to access data in Office 365 by building a Python Django web application using the Azure AD v2 authentication endpoint to access data in Office 365.
+This sample uses Microsoft Graph to access data in Office 365 by building a Python Django web application using the Azure AD v2 authentication endpoint.
 
 - [Python Microsoft Graph tutorial](https://docs.microsoft.com/graph/tutorials/python)
 
 ## Prerequisites
-
+- [Python](https://www.python.org/) (with [pip](https://pypi.org/project/pip/)) installed on your development machine. If you do not have Python, visit the previous link for download options. (**Note:** This tutorial was written with Python version 3.8.2 and Django version 3.7.9. The steps in this guide may work with other versions, but that has not been tested.)
 - Either a personal Microsoft account with a mailbox on Outlook.com, or a Microsoft work or school account.
 
 If you don't have a Microsoft account, there are a couple of options to get a free account:
@@ -29,25 +29,56 @@ If you don't have a Microsoft account, there are a couple of options to get a fr
 
 1. Select **Azure Active Directory** in the left-hand navigation, then select **App registrations** under **Manage**.
 
+    ![A screenshot of the App registrations ](/tutorial/images/aad-portal-app-registrations.png)
+
 1. Select **New registration**. On the **Register an application** page, set the values as follows.
 
-    - Set **Name** to `PHP Graph Tutorial`.
+    - Set **Name** to `Python Graph Tutorial`.
     - Set **Supported account types** to **Accounts in any organizational directory and personal Microsoft accounts**.
-    - Under **Redirect URI**, set the first drop-down to `Web` and set the value to `https://localhost:8000/callback`.
+    - Under **Redirect URI**, set the first drop-down to `Web` and set the value to `http://localhost:8000/callback`.
 
-1. Select **Certificates & secrets** under **Manage**. Select the **New client secret** button. Enter a value in **Description** and select one of the options for **Expires** and select **Add**.
+    ![A screenshot of the Register an application page](/tutorial/images/aad-register-an-app.png)
+
+1. Choose **Register**. On the **Python Graph Tutorial** page, copy the value of the **Application (client) ID** and save it, you will need it in the next step.
+
+    ![A screenshot of the application ID of the new app registration](/tutorial/images/aad-application-id.png)
+
+1. Select **Certificates & secrets** under **Manage**. Select the **New client secret** button. Enter a value in **Description** and select one of the options for **Expires** and choose **Add**.
+
+    ![A screenshot of the Add a client secret dialog](/tutorial/images/aad-new-client-secret.png)
 
 1. Copy the client secret value before you leave this page. You will need it in the next step.
 
-    > **IMPORTANT**
+    > [!IMPORTANT]
     > This client secret is never shown again, so make sure you copy it now.
+
+    ![A screenshot of the newly added client secret](/tutorial/images/aad-copy-client-secret.png)
+
 ## Configure the sample
+
+1. Rename the `oauth_settings.yml.example` file to `oauth_settings.yml`.
+1. Edit the `oauth_settings.yml` file and make the following changes.
+    1. Replace `YOUR_APP_ID_HERE` with the **Application Id** you got from the App Registration Portal.
+    1. Replace `YOUR_APP_PASSWORD_HERE` with the password you got from the App Registration Portal.
+1. In your command-line interface (CLI), navigate to this directory and run the following command to install requirements.
+
+    ```Shell
+    pip install -r requirements.txt
+    ```
+
+1. In your CLI, run the following command to initialize the app's database.
+
+    ```Shell
+    python manage.py migrate
+    ```
 
 ## Run the sample
 
 1. Run the following command in your CLI to start the application.
-```
-```
+
+    ```Shell
+    python manage.py runserver
+    ```
 
 1. Open a browser and browse to `http://localhost:8000`.
 
