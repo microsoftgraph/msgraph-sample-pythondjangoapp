@@ -1,3 +1,14 @@
+---
+page_type: sample
+description: This sample demonstrates how to use the Microsoft Graph to access data in Office 365 from a Python Django app.
+products:
+- ms-graph
+- microsoft-graph-calendar-api
+- office-exchange-online
+languages:
+- csharp
+- aspx-csharp
+---
 # Microsoft Graph Training Module - Build Python Django apps with Microsoft Graph
 
 This module will introduce you to working with Microsoft Graph to access data in Office 365 by building a Python Django web applications.
