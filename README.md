@@ -15,7 +15,7 @@ This sample uses Microsoft Graph to access data in Office 365 by building a Pyth
 - [Python Microsoft Graph tutorial](https://docs.microsoft.com/graph/tutorials/python)
 
 ## Prerequisites
-- [Python](https://www.python.org/) (with [pip](https://pypi.org/project/pip/)) installed on your development machine. If you do not have Python, visit the previous link for download options. (**Note:** This tutorial was written with Python version 3.7.9 and Django version 3.0.4 The steps in this guide may work with other versions, but that has not been tested.)
+- [Python](https://www.python.org/) (with [pip](https://pypi.org/project/pip/)) installed on your development machine. If you do not have Python, visit the previous link for download options. (**Note:** This tutorial was written with Python version 3.7.9 and Django version 3.2.15 The steps in this guide may work with other versions, but that has not been tested.)
 - Either a personal Microsoft account with a mailbox on Outlook.com, or a Microsoft work or school account.
 
 If you don't have a Microsoft account, there are a couple of options to get a free account:
