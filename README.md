@@ -27,8 +27,6 @@ If you don't have a Microsoft account, there are a couple of options to get a fr
 
 1. Select **Azure Active Directory** in the left-hand navigation, then select **App registrations** under **Manage**.
 
-    ![A screenshot of the App registrations ](/tutorial/images/aad-portal-app-registrations.png)
-
 1. Select **New registration**. On the **Register an application** page, set the values as follows.
 
     - Set **Name** to `Python Graph Tutorial`.
