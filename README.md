@@ -44,7 +44,7 @@ If you don't have a Microsoft account, there are a couple of options to get a fr
 
 ## Configure the sample
 
-1. Rename the `oauth_settings.yml.example` file to `oauth_settings.yml`.
+1. Rename the `oauth_settings.example.yml` file to `oauth_settings.yml`.
 1. Edit the `oauth_settings.yml` file and make the following changes.
     1. Replace `YOUR_APP_ID_HERE` with the **Application Id** you got from the App Registration Portal.
     1. Replace `YOUR_APP_PASSWORD_HERE` with the password you got from the App Registration Portal.

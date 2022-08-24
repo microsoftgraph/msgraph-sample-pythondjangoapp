@@ -1,0 +1,8 @@
+app_id: "YOUR_APP_ID_HERE"
+app_secret: "YOUR_APP_SECRET_HERE"
+redirect: "http://localhost:8000/callback"
+scopes:
+  - user.read
+  - mailboxsettings.read
+  - calendars.readwrite
+authority: "https://login.microsoftonline.com/common"

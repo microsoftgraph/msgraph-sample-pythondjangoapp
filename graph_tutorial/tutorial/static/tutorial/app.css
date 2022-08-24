@@ -1,0 +1,18 @@
+body {
+  padding-top: 4.5rem;
+}
+
+.alert-pre {
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.external-link {
+  padding-top: 6px;
+}
+
+.avatar-link {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
