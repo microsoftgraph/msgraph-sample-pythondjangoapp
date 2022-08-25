@@ -1,0 +1,16 @@
+{
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.pylintArgs": [
+        "--rcfile=graph_tutorial/.pylintrc"
+    ],
+    "cSpell.words": [
+        "calendarview",
+        "dateutil",
+        "gettz",
+        "newevent",
+        "signin",
+        "signout",
+        "timespec"
+    ]
+}
