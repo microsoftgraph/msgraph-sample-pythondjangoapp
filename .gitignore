@@ -103,11 +103,5 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# VS Code
-.vscode/
-
 # OAuth settings
 oauth_settings.yml
-
-QSTemp/
-PythonDjangoQuickStart.zip
