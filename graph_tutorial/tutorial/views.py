@@ -58,6 +58,8 @@ def sign_out(request):
 def calendar(request):
     context = initialize_context(request)
     user = context['user']
+    if not user['is_authenticated']:
+        return HttpResponseRedirect(reverse('signin'))
 
     # Load the user's time zone
     # Microsoft Graph can return the user's time zone as either
@@ -103,6 +105,8 @@ def calendar(request):
 def new_event(request):
     context = initialize_context(request)
     user = context['user']
+    if not user['is_authenticated']:
+        return HttpResponseRedirect(reverse('signin'))
 
     if request.method == 'POST':
         # Validate the form values
