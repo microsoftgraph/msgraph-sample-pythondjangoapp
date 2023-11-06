@@ -1,4 +1,4 @@
-Django==4.2.6
+Django==4.2.7
 msal==1.24.1
 python-dateutil==2.8.2
 PyYAML==6.0.1
