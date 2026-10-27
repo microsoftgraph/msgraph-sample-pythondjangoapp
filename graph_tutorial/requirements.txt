@@ -1,4 +1,4 @@
-Django==5.2.1;python_version>"3.9"
+Django==6.1.2;python_version>"3.9"
 Django==4.2.20;python_version<="3.9"
 msal==1.39.0
 python-dateutil==3.0.0
